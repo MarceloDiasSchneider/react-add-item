@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from "react";
 
 function App() {
+  const [btnValue, setBtnValue] = useState('Add Item')
+  const [thingsArray, setThingsArray] = useState(["Thing 1", "Thing 2"])
+  var thingsElements = thingsArray.map((thing) => <p key={thing}>{thing}</p>);
+
+  function addItem() {
+    setBtnValue('Adding Item')
+    
+    console.log(thingsArray);
+    let len = thingsArray.length + 1
+    setThingsArray(thingsArray => [...thingsArray, `Thing ${len}`] )
+     
+    setTimeout(() => {
+      setBtnValue('Add Item')
+    }, 1000);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={addItem}>{btnValue}</button>
+      {thingsElements}
     </div>
   );
 }
